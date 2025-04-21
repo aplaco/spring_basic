@@ -13,6 +13,9 @@
             <h2 th:text="${user.uname}"></h2>
             <p th:text="${user.email}"></p>
             <span th:text="${user.colors}"></span>
+            <form th:action="{'/admin/del/'+ ${user.id} }" method="get">
+                <button type="submit">delete user</button>
+            </form>
         </li>
     </ul>
 </section>

@@ -27,4 +27,9 @@ public class JoinService {
     public List<JoinEntity> getAllUsers(){
         return joinRepo.findAll();
     }
+
+    //id값으로 데이터삭제하는 jpa 메서드 호출
+    public void delete(Long id){
+        joinRepo.deleteById(id);
+    }
 }
