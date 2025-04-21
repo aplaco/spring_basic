@@ -1,5 +1,4 @@
-package com.example.spring_basic.dto;
-
+package com.example.basic.dto;
 import lombok.*;
 
 //lombok라이브러리로부터 아래 어노테이션을 활성화 시키면

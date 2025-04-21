@@ -1,6 +1,6 @@
-package com.example.spring_basic.repository;
+package com.example.basic.repository;
 
-import com.example.spring_basic.entity.JoinEntity;
+import com.example.basic.entity.JoinEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 //JPA 인터페이스만 정의
