@@ -16,24 +16,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JoinController {
     private final JoinService joinService;
-   
 
     @GetMapping("/join")
     public String join(){
         return "join";
     }
 
-
     @PostMapping("/join/create")
     public String create(@ModelAttribute JoinDTO formDTO, Model model  ){
         String msg = joinService.processJoin(formDTO);
         model.addAttribute("data", msg);
-        return "index";
+        List<JoinEntity> users = joinService.getAllUsers();
+        System.out.println(users);
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin")
     public String showAdminPage(Model model){
         List<JoinEntity> users = joinService.getAllUsers();
+        model.addAttribute("users", users);
         return "admin";
     }
 }
