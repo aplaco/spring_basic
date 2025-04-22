@@ -3,17 +3,14 @@ import com.example.basic.dto.JoinDTO;
 import com.example.basic.entity.JoinEntity;
 import com.example.basic.service.JoinService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-//인스턴스를 담을 멤버변수에 final 지정 가능케 함
 @RequiredArgsConstructor
 public class JoinController {
     private final JoinService joinService;
@@ -30,9 +27,13 @@ public class JoinController {
     }
 
     @GetMapping("/admin")
-    public String showAdminPage(Model model){
-        List<JoinEntity> users = joinService.getAllUsers();
-        model.addAttribute("users", users);
+    public String showAdminPage(@RequestParam(defaultValue="0") int page, Model model){
+        //각 페이지별 출력할 데이터 개수
+        int pageSize = 2;
+        Page<JoinEntity> userPage = joinService.getUsersByPage(page, pageSize);
+
+        model.addAttribute("userPage", userPage);
+        model.addAttribute("currentPage", page);
         return "admin";
     }
 
@@ -43,17 +44,14 @@ public class JoinController {
         return "redirect:/admin";
     }
 
-    // 수정 버튼 클릭시 해당 메서드 어노테이션 호출
     @GetMapping("/admin/edit/{id}")
     public String editUser(@PathVariable Long id, Model model){
-        //서비스 메서드인 getUserById에 클릭한 게시글의 아이디값 전달해서 게시글 반환받음
         JoinEntity user = joinService.getUserById(id);
-        //model.addAttribute 메서드에 의해서 edit 뷰화면에 해당 데이터 전달
         model.addAttribute("user", user);
         return "edit";
     }
 
-    //수정폼 화면에서 최종 수정이 일어나는 컨트롤러
+
     @PostMapping("/admin/update")
     public String updateUser(JoinEntity formUser){
         joinService.updateUser(formUser);
@@ -61,5 +59,6 @@ public class JoinController {
     }
 
 
-}
 
+
+}
