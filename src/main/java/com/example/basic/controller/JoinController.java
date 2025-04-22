@@ -29,7 +29,7 @@ public class JoinController {
     @GetMapping("/admin")
     public String showAdminPage(@RequestParam(defaultValue="0") int page, Model model){
         //각 페이지별 출력할 데이터 개수
-        int pageSize = 2;
+        int pageSize = 6;
         Page<JoinEntity> userPage = joinService.getUsersByPage(page, pageSize);
 
         model.addAttribute("userPage", userPage);

@@ -10,6 +10,7 @@
 <section  layout:fragment="body">
     <h1>Admin Page</h1>
     <ul>
+        <!--    th:each="변수 : 리스트" 해당 반복문은 리스트의 갯수만큼 반복을 돌며 반복도는 해당 데이터를 변수에 담아줌,  숫자 카운팅 기능 없음    -->
         <li th:each="user: ${userPage.content}">
             <h2 th:text="${user.uname}"></h2>
             <p th:text="${user.email}"></p>
@@ -25,6 +26,12 @@
             </form>
         </li>
     </ul>
+
+    <nav>
+        <!--    #numbers. sequence(0, 4) => [0,1,2,3,4] 숫자형 리스트 반환    -->
+        <!--    아래와 같이 굳이 숫자형 리스트를 만들면서 까지 반복돌리는 이유는 페이지네이션에 숫자가 들어가야 되기 때문    -->
+        <a th:each="i: ${#numbers.sequence(0, userPage.totalPages -1)}" th:text="${i+1}"> </a>
+    </nav>
 </section>
 </body>
 </html>
